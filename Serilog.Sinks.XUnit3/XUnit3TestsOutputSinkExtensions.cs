@@ -5,6 +5,9 @@ using Xunit;
 
 namespace Serilog.Sinks.XUnit3;
 
+/// <summary>
+///     Extensions to configure Serilog logger to write logs to xUnit.v3 test output.
+/// </summary>
 public static class XUnit3TestsOutputSinkExtensions
 {
     /// <summary>
