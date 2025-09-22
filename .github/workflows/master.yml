@@ -9,6 +9,8 @@ jobs:
   get-version:
     name: Get Version
     runs-on: windows-latest
+    permissions: 
+      contents: read
     steps:
       - name: Checkout
         uses: actions/checkout@v5

@@ -2,6 +2,8 @@
 # serilog-sinks-xunit-v3
 The xUnit.v3 injectable test output sink for Serilog
 
+**Link to NuGet:** https://www.nuget.org/packages/Serilog.Sinks.XUnit3
+
 ## What is it?
 It's a package that will allow you to use Serilog for test output in xUnit.v3.
 
