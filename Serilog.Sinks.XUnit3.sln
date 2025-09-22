@@ -8,10 +8,20 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Serilog.Sinks.XUnit3.Tests"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{DF2F822A-B547-4D06-9E08-2CA8D8026E5D}"
 	ProjectSection(SolutionItems) = preProject
-	    .gitignore = .gitignore
 		LICENSE = LICENSE
 		README.md = README.md
 		icon.png = icon.png
+		GitVersion.yml = GitVersion.yml
+		.gitignore = .gitignore
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GitHub", "GitHub", "{C5E96301-6C57-48EC-B331-4E78B2D551DA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Workflows", "Workflows", "{E22DB740-5590-4185-88D8-C824B6691BC9}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\master.yml = .github\workflows\master.yml
+		.github\workflows\publish.yml = .github\workflows\publish.yml
+		.github\workflows\pr.yml = .github\workflows\pr.yml
 	EndProjectSection
 EndProject
 Global
@@ -32,5 +42,9 @@ Global
 		{9A9F2780-1C64-44B9-A2D2-A4AF630326A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9A9F2780-1C64-44B9-A2D2-A4AF630326A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9A9F2780-1C64-44B9-A2D2-A4AF630326A8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C5E96301-6C57-48EC-B331-4E78B2D551DA} = {DF2F822A-B547-4D06-9E08-2CA8D8026E5D}
+		{E22DB740-5590-4185-88D8-C824B6691BC9} = {C5E96301-6C57-48EC-B331-4E78B2D551DA}
 	EndGlobalSection
 EndGlobal

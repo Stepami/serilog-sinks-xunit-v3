@@ -1,0 +1,29 @@
+name: Push To Master Workflow
+
+on:
+  push:
+    branches:
+      - master
+        
+jobs:
+  get-version:
+    name: Get Version
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: 9.0.x
+      - name: Setup GitVersion
+        uses: gittools/actions/gitversion/setup@v3.0.0
+        with:
+          versionSpec: '5.12.0'
+      - name: Determine Version
+        id: version_step
+        uses: gittools/actions/gitversion/execute@v3.0.0
+        with:
+          useConfigFile: true
