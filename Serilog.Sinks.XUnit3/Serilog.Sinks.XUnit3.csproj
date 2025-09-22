@@ -5,11 +5,42 @@
         <LangVersion>latest</LangVersion>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+        <PackageId>Serilog.Sinks.XUnit3</PackageId>
+        <Description>The xUnit.v3 injectable test output sink for Serilog</Description>
+        <Authors>Stepami</Authors>
+        <Company>N/A</Company>
+        <Copyright>Copyright © Stepami 2025</Copyright>
+        <RepositoryUrl>https://github.com/Stepami/serilog-sinks-xunit-v3</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <PackageProjectUrl>https://github.com/Stepami/serilog-sinks-xunit-v3</PackageProjectUrl>
+        <Title>Serilog.Sinks.XUnit3</Title>
+        <PackageLicenseFile>LICENSE</PackageLicenseFile>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <PackageTags>logging Serilog xUnit xUnit.v3 xUnit3 xUnit-v3 ITestOutputHelper</PackageTags>
+        <IsPackable>true</IsPackable>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+        <DocumentationFile>bin\Debug\net8.0\Serilog.Sinks.XUnit3.xml</DocumentationFile>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+        <DocumentationFile>bin\Release\net8.0\Serilog.Sinks.XUnit3.xml</DocumentationFile>
     </PropertyGroup>
 
     <ItemGroup>
       <PackageReference Include="Serilog" Version="4.3.0" />
       <PackageReference Include="xunit.v3.extensibility.core" Version="3.0.1" />
+    </ItemGroup>
+
+    <PropertyGroup>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <None Include="../LICENSE" Pack="true" Visible="false" PackagePath=""/>
+        <None Include="../README.md" Pack="true" Visible="false" PackagePath=""/>
     </ItemGroup>
 
 </Project>
