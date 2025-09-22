@@ -27,3 +27,12 @@ jobs:
         uses: gittools/actions/gitversion/execute@v3.0.0
         with:
           useConfigFile: true
+      - name: Push New Version Tag
+        run: |
+          $gv = ${{ steps.version_step.outputs.majorMinorPatch }} #gitversion result
+          $lt = $( git describe --tags --abbrev=0 ) # last tag version result
+          if ( -Not ( $gv -eq $lt ) )
+          {
+            git tag $gv
+            git push origin --tags
+          }
