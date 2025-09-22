@@ -1,3 +1,4 @@
+![](icon.png)
 # serilog-sinks-xunit-v3
 The xUnit.v3 injectable test output sink for Serilog
 

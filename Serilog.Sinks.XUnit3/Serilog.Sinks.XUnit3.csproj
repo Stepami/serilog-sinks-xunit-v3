@@ -17,6 +17,7 @@
         <Title>Serilog.Sinks.XUnit3</Title>
         <PackageLicenseFile>LICENSE</PackageLicenseFile>
         <PackageReadmeFile>README.md</PackageReadmeFile>
+        <PackageIcon>icon.png</PackageIcon>
         <PackageTags>logging Serilog xUnit xUnit.v3 xUnit3 xUnit-v3 ITestOutputHelper</PackageTags>
         <IsPackable>true</IsPackable>
     </PropertyGroup>
@@ -41,6 +42,7 @@
     <ItemGroup>
         <None Include="../LICENSE" Pack="true" Visible="false" PackagePath=""/>
         <None Include="../README.md" Pack="true" Visible="false" PackagePath=""/>
+        <None Include="../icon.png" Pack="true" Visible="false" PackagePath=""/>
     </ItemGroup>
 
 </Project>
