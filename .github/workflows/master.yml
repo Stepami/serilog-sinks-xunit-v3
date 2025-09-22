@@ -8,9 +8,7 @@ on:
 jobs:
   get-version:
     name: Get Version
-    runs-on: windows-latest
-    permissions: 
-      contents: read
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v5
@@ -31,10 +29,9 @@ jobs:
           useConfigFile: true
       - name: Push New Version Tag
         run: |
-          $gv = ${{ steps.version_step.outputs.majorMinorPatch }} #gitversion result
-          $lt = $( git describe --tags --abbrev=0 ) # last tag version result
-          if ( -Not ( $gv -eq $lt ) )
-          {
+          gv=${{ steps.version_step.outputs.majorMinorPatch }} #gitversion result
+          lt=$( git describe --tags --abbrev=0 ) # last tag version result
+          if [[ $gv != $lt ]]; then
             git tag $gv
             git push origin --tags
-          }
+          fi
