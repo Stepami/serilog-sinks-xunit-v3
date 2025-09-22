@@ -6,6 +6,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Serilog.Sinks.XUnit3.Sample
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Serilog.Sinks.XUnit3.Tests", "Serilog.Sinks.XUnit3.Tests\Serilog.Sinks.XUnit3.Tests.csproj", "{9A9F2780-1C64-44B9-A2D2-A4AF630326A8}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{DF2F822A-B547-4D06-9E08-2CA8D8026E5D}"
+	ProjectSection(SolutionItems) = preProject
+	    .gitignore = .gitignore
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
