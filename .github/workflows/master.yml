@@ -6,8 +6,8 @@ on:
       - master
 
 jobs:
-  get-version:
-    name: Get Version
+  build-and-publish:
+    name: Get Version then Build and Publish to NuGet
     runs-on: ubuntu-latest
     permissions:
       actions: write
@@ -36,3 +36,9 @@ jobs:
             git tag $gv
             git push origin --tags
           fi
+      - name: Restore
+        run: dotnet restore
+      - name: Build
+        run: dotnet build --no-restore -c Release -v n /p:Version=${{ steps.version_step.outputs.publishVersion }}
+      - name: Publish
+        run: dotnet nuget push ./Serilog.Sinks.XUnit3/bin/Release/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
