@@ -17,16 +17,14 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v5
         with:
-          dotnet-version: 9.0.x
+          dotnet-version: 8.0.x
       - name: Setup GitVersion
-        uses: gittools/actions/gitversion/setup@v3.0.0
+        uses: gittools/actions/gitversion/setup@v4.1.0
         with:
-          versionSpec: '5.12.0'
+          versionSpec: '6.4.x'
       - name: Determine Version
         id: version_step
-        uses: gittools/actions/gitversion/execute@v3.0.0
-        with:
-          useConfigFile: true
+        uses: gittools/actions/gitversion/execute@v4.1.0
       - name: Push New Version Tag
         run: |
           gv=${{ steps.version_step.outputs.majorMinorPatch }} #gitversion result
