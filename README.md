@@ -82,7 +82,11 @@ public class SampleFactory : WebApplicationFactory<Program>
 {
     protected override IHost CreateHost(IHostBuilder builder)
     {
-        builder.ConfigureServices(services => services.AddSingleton(new XUnit3TestOutputSink()));
+        builder.ConfigureServices(services =>
+        {
+            services.AddSingleton(Options.Create(new XUnit3TestOutputSinkOptions()));
+            services.AddSingleton<XUnit3TestOutputSink>();
+        });
         builder.UseSerilog((_, serviceProvider, loggerConfiguration) =>
             loggerConfiguration.WriteTo.XUnit3TestOutput(
                 serviceProvider.GetRequiredService<XUnit3TestOutputSink>()));
