@@ -45,6 +45,15 @@ public class UnitTestsOne
     }
 }
 ```
+If you want to pass `ITestOutputHelper` and `IMessageSink` to `XUnit3TestOutputSink` manually, then you can do this:
+```csharp
+var sink = new XUnit3TestOutputSink(Options.Create(new XUnit3TestOutputSinkOptions()))
+{
+    TestOutputHelper = testOutputHelper,
+    MessageSink = messageSink
+};
+```
+For more info read the docs: https://xunit.net/docs/capturing-output
 
 ### Integration tests
 

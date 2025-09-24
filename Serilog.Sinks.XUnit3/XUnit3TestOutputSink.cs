@@ -3,6 +3,8 @@ using Serilog.Events;
 using Serilog.Formatting.Display;
 using Serilog.Core;
 using Xunit;
+using Xunit.Sdk;
+using Xunit.v3;
 
 namespace Serilog.Sinks.XUnit3;
 
@@ -24,6 +26,13 @@ public sealed class XUnit3TestOutputSink(IOptions<XUnit3TestOutputSinkOptions> o
     /// </summary>
     public ITestOutputHelper? TestOutputHelper { get; set; }
 
+    /// <summary>
+    ///     Reference to xUnit.v3 <see cref="IMessageSink"/>.
+    ///     Needs to be set through DI in cases the sink runs on background thread.
+    ///     By default, backed by <c>TestContext.Current.SendDiagnosticMessage</c> during <see cref="XUnit3TestOutputSink.Emit"/> call.
+    /// </summary>
+    public IMessageSink? MessageSink { get; set; }
+
     /// <inheritdoc cref="ILogEventSink.Emit"/>
     public void Emit(LogEvent logEvent)
     {
@@ -33,5 +42,9 @@ public sealed class XUnit3TestOutputSink(IOptions<XUnit3TestOutputSinkOptions> o
         _messageTemplateTextFormatter.Format(logEvent, stringWriter);
         var message = stringWriter.ToString().Trim();
         (TestOutputHelper ?? TestContext.Current.TestOutputHelper)?.WriteLine(message);
+        if (MessageSink is null)
+            TestContext.Current.SendDiagnosticMessage(message);
+        else
+            MessageSink.OnMessage(new DiagnosticMessage(message));
     }
 }
