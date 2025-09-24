@@ -39,6 +39,6 @@ jobs:
       - name: Restore
         run: dotnet restore
       - name: Build
-        run: dotnet build --no-restore -c Release -v n /p:Version=${{ steps.version_step.outputs.publishVersion }}
+        run: dotnet build --no-restore -c Release -v n /p:Version=${{ steps.version_step.outputs.majorMinorPatch }}
       - name: Publish
         run: dotnet nuget push ./Serilog.Sinks.XUnit3/bin/Release/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
