@@ -45,6 +45,15 @@ public class UnitTestsOne
     }
 }
 ```
+If you want to pass `ITestOutputHelper` and `IMessageSink` to `XUnit3TestOutputSink` manually, then you can do this:
+```csharp
+var sink = new XUnit3TestOutputSink(Options.Create(new XUnit3TestOutputSinkOptions()))
+{
+    TestOutputHelper = testOutputHelper,
+    MessageSink = messageSink
+};
+```
+For more info read the docs: https://xunit.net/docs/capturing-output
 
 ### Integration tests
 
@@ -82,7 +91,11 @@ public class SampleFactory : WebApplicationFactory<Program>
 {
     protected override IHost CreateHost(IHostBuilder builder)
     {
-        builder.ConfigureServices(services => services.AddSingleton(new XUnit3TestOutputSink()));
+        builder.ConfigureServices(services =>
+        {
+            services.AddSingleton(Options.Create(new XUnit3TestOutputSinkOptions()));
+            services.AddSingleton<XUnit3TestOutputSink>();
+        });
         builder.UseSerilog((_, serviceProvider, loggerConfiguration) =>
             loggerConfiguration.WriteTo.XUnit3TestOutput(
                 serviceProvider.GetRequiredService<XUnit3TestOutputSink>()));

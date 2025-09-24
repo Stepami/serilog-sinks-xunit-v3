@@ -1,7 +1,10 @@
-﻿using Serilog.Events;
+﻿using Microsoft.Extensions.Options;
+using Serilog.Events;
 using Serilog.Formatting.Display;
 using Serilog.Core;
 using Xunit;
+using Xunit.Sdk;
+using Xunit.v3;
 
 namespace Serilog.Sinks.XUnit3;
 
@@ -9,15 +12,12 @@ namespace Serilog.Sinks.XUnit3;
 ///     The sink for logging through Serilog to xUnit.v3 test output.
 ///     The instance of this class needs to be injected to DI.
 /// </summary>
-/// <param name="outputTemplate">Format of the log message</param>
-/// <param name="formatProvider">Format source</param>
-public sealed class XUnit3TestOutputSink(
-    string outputTemplate = XUnit3TestOutputSink.DefaultTemplate,
-    IFormatProvider? formatProvider = null) : ILogEventSink
+/// <param name="options">Configuration settings.</param>
+public sealed class XUnit3TestOutputSink(IOptions<XUnit3TestOutputSinkOptions> options) : ILogEventSink
 {
-    private const string DefaultTemplate = "[{Timestamp:HH:mm:ss} {Level:u3}] {Message:lj}{Exception}";
-
-    private readonly MessageTemplateTextFormatter _messageTemplateTextFormatter = new(outputTemplate, formatProvider);
+    private readonly MessageTemplateTextFormatter _messageTemplateTextFormatter = new(
+        options.Value.OutputTemplate,
+        options.Value.FormatProvider);
 
     /// <summary>
     ///     Reference to xUnit.v3 <see cref="ITestOutputHelper"/>.
@@ -25,6 +25,13 @@ public sealed class XUnit3TestOutputSink(
     ///     By default, backed by <c>TestContext.Current.TestOutputHelper</c> during <see cref="XUnit3TestOutputSink.Emit"/> call.
     /// </summary>
     public ITestOutputHelper? TestOutputHelper { get; set; }
+
+    /// <summary>
+    ///     Reference to xUnit.v3 <see cref="IMessageSink"/>.
+    ///     Needs to be set through DI in cases the sink runs on background thread.
+    ///     By default, backed by <c>TestContext.Current.SendDiagnosticMessage</c> during <see cref="XUnit3TestOutputSink.Emit"/> call.
+    /// </summary>
+    public IMessageSink? MessageSink { get; set; }
 
     /// <inheritdoc cref="ILogEventSink.Emit"/>
     public void Emit(LogEvent logEvent)
@@ -35,5 +42,9 @@ public sealed class XUnit3TestOutputSink(
         _messageTemplateTextFormatter.Format(logEvent, stringWriter);
         var message = stringWriter.ToString().Trim();
         (TestOutputHelper ?? TestContext.Current.TestOutputHelper)?.WriteLine(message);
+        if (MessageSink is null)
+            TestContext.Current.SendDiagnosticMessage(message);
+        else
+            MessageSink.OnMessage(new DiagnosticMessage(message));
     }
 }

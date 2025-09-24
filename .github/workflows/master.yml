@@ -4,11 +4,14 @@ on:
   push:
     branches:
       - master
-        
+
 jobs:
-  get-version:
-    name: Get Version
+  build-and-publish:
+    name: Get Version then Build and Publish to NuGet
     runs-on: ubuntu-latest
+    permissions:
+      actions: write
+      contents: write
     steps:
       - name: Checkout
         uses: actions/checkout@v5
@@ -17,16 +20,14 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v5
         with:
-          dotnet-version: 9.0.x
+          dotnet-version: 8.0.x
       - name: Setup GitVersion
-        uses: gittools/actions/gitversion/setup@v3.0.0
+        uses: gittools/actions/gitversion/setup@v4.1.0
         with:
-          versionSpec: '5.12.0'
+          versionSpec: '6.4.x'
       - name: Determine Version
         id: version_step
-        uses: gittools/actions/gitversion/execute@v3.0.0
-        with:
-          useConfigFile: true
+        uses: gittools/actions/gitversion/execute@v4.1.0
       - name: Push New Version Tag
         run: |
           gv=${{ steps.version_step.outputs.majorMinorPatch }} #gitversion result
@@ -35,3 +36,9 @@ jobs:
             git tag $gv
             git push origin --tags
           fi
+      - name: Restore
+        run: dotnet restore
+      - name: Build
+        run: dotnet build --no-restore -c Release -v n /p:Version=${{ steps.version_step.outputs.majorMinorPatch }}
+      - name: Publish
+        run: dotnet nuget push ./Serilog.Sinks.XUnit3/bin/Release/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
