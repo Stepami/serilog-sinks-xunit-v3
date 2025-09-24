@@ -4,11 +4,14 @@ on:
   push:
     branches:
       - master
-        
+
 jobs:
   get-version:
     name: Get Version
     runs-on: ubuntu-latest
+    permissions:
+      actions: write
+      contents: write
     steps:
       - name: Checkout
         uses: actions/checkout@v5
