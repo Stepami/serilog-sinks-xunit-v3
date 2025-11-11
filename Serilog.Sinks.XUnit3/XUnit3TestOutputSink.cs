@@ -36,8 +36,12 @@ public sealed class XUnit3TestOutputSink(IOptions<XUnit3TestOutputSinkOptions> o
     /// <inheritdoc cref="ILogEventSink.Emit"/>
     public void Emit(LogEvent logEvent)
     {
+#if NET8_0_OR_GREATER
         ArgumentNullException.ThrowIfNull(logEvent);
-
+#else
+        if (logEvent is null)
+            throw new ArgumentNullException(nameof(logEvent));
+#endif
         using var stringWriter = new StringWriter();
         _messageTemplateTextFormatter.Format(logEvent, stringWriter);
         var message = stringWriter.ToString().Trim();
