@@ -15,7 +15,7 @@ dotnet add package Serilog.Sinks.XUnit3
 ```
 Package Reference:
 ```xml
-<PackageReference Include="Serilog.Sinks.XUnit3" Version="1.0.0" />
+<PackageReference Include="Serilog.Sinks.XUnit3" Version="2.0.0" />
 ```
 
 ## Example usage
@@ -25,11 +25,6 @@ In **Unit** tests you can do not think about `ITestOutputHelper`, as it is backe
 ### Unit tests
 
 ```csharp
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-
-namespace Serilog.Sinks.XUnit3.Tests.Unit;
-
 public class UnitTestsOne
 {
     [Fact]
@@ -48,7 +43,7 @@ public class UnitTestsOne
 ```
 If you want to pass `ITestOutputHelper` and `IMessageSink` to `XUnit3TestOutputSink` manually, then you can do this:
 ```csharp
-var sink = new XUnit3TestOutputSink(Options.Create(new XUnit3TestOutputSinkOptions()))
+var sink = new XUnit3TestOutputSink()
 {
     TestOutputHelper = testOutputHelper,
     MessageSink = messageSink
@@ -59,13 +54,6 @@ For more info read the docs: https://xunit.net/docs/capturing-output
 ### Integration tests
 
 ```csharp
-using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using System.Net.Http.Json;
-
-namespace Serilog.Sinks.XUnit3.Tests.Integration;
-
 [CollectionDefinition(nameof(SampleCollection))]
 public class SampleCollection : ICollectionFixture<SampleFixture>;
 
