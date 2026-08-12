@@ -20,14 +20,8 @@
         <PackageIcon>icon.png</PackageIcon>
         <PackageTags>logging Serilog xUnit xUnit.v3 xUnit3 xUnit-v3 ITestOutputHelper</PackageTags>
         <IsPackable>true</IsPackable>
-    </PropertyGroup>
-
-    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-        <DocumentationFile>bin\Debug\net8.0\Serilog.Sinks.XUnit3.xml</DocumentationFile>
-    </PropertyGroup>
-
-    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-        <DocumentationFile>bin\Release\net8.0\Serilog.Sinks.XUnit3.xml</DocumentationFile>
+        <DocumentationFile>bin\$(Configuration)\net8.0\Serilog.Sinks.XUnit3.xml</DocumentationFile>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     </PropertyGroup>
 
 	<ItemGroup>
@@ -35,10 +29,6 @@
 		<PackageReference Include="Serilog" Version="4.3.0" />
 		<PackageReference Include="xunit.v3.extensibility.core" Version="3.0.1" />
 	</ItemGroup>
-
-	<PropertyGroup>
-		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-	</PropertyGroup>
 
 	<ItemGroup>
 		<None Include="../LICENSE" Pack="true" Visible="false" PackagePath=""/>
