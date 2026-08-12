@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Options;
-using Serilog.Events;
+﻿using Serilog.Events;
 using Serilog.Formatting.Display;
 using Serilog.Core;
 using Xunit;
@@ -13,11 +12,18 @@ namespace Serilog.Sinks.XUnit3;
 ///     The instance of this class needs to be injected to DI.
 /// </summary>
 /// <param name="options">Configuration settings.</param>
-public sealed class XUnit3TestOutputSink(IOptions<XUnit3TestOutputSinkOptions> options) : ILogEventSink
+public sealed class XUnit3TestOutputSink(XUnit3TestOutputSinkOptions options) : ILogEventSink
 {
     private readonly MessageTemplateTextFormatter _messageTemplateTextFormatter = new(
-        options.Value.OutputTemplate,
-        options.Value.FormatProvider);
+        options.OutputTemplate,
+        options.FormatProvider);
+
+    /// <summary>
+    /// Default ctor
+    /// </summary>
+    public XUnit3TestOutputSink() : this(new())
+    {
+    }
 
     /// <summary>
     ///     Reference to xUnit.v3 <see cref="ITestOutputHelper"/>.

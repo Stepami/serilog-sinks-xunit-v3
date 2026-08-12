@@ -94,7 +94,6 @@ public class SampleFactory : WebApplicationFactory<Program>
     {
         builder.ConfigureServices(services =>
         {
-            services.AddSingleton(Options.Create(new XUnit3TestOutputSinkOptions()));
             services.AddSingleton<XUnit3TestOutputSink>();
         });
         builder.UseSerilog((_, serviceProvider, loggerConfiguration) =>
