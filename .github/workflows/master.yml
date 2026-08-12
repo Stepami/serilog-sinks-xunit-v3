@@ -5,6 +5,9 @@ on:
     branches:
       - master
 
+env:
+  PROJ: Serilog.Sinks.XUnit3
+
 jobs:
   build-and-publish:
     name: Get Version then Build and Publish to NuGet
@@ -14,20 +17,20 @@ jobs:
       contents: write
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
       - name: Setup .NET
         uses: actions/setup-dotnet@v5
         with:
-          dotnet-version: 8.0.x
+          dotnet-version: 8.x
       - name: Setup GitVersion
-        uses: gittools/actions/gitversion/setup@v4.1.0
+        uses: gittools/actions/gitversion/setup@v4
         with:
-          versionSpec: '6.4.x'
+          versionSpec: '6.8.x'
       - name: Determine Version
         id: version_step
-        uses: gittools/actions/gitversion/execute@v4.1.0
+        uses: gittools/actions/gitversion/execute@v4
       - name: Push New Version Tag
         run: |
           gv=${{ steps.version_step.outputs.majorMinorPatch }} #gitversion result
@@ -40,5 +43,14 @@ jobs:
         run: dotnet restore
       - name: Build
         run: dotnet build --no-restore -c Release -v n /p:Version=${{ steps.version_step.outputs.majorMinorPatch }}
+      - name: NuGet login (OIDC → temp API key)
+        uses: NuGet/login@v1
+        id: nuget_login
+        with:
+          user: ${{ secrets.NUGET_USER }}
       - name: Publish
-        run: dotnet nuget push ./Serilog.Sinks.XUnit3/bin/Release/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+        run: >-
+          dotnet nuget push
+          ./${{ env.PROJ }}/bin/Release/${{ env.PROJ }}.${{ steps.version_step.outputs.majorMinorPatch }}.nupkg
+          --api-key ${{ steps.nuget_login.outputs.NUGET_API_KEY }}
+          --source https://api.nuget.org/v3/index.json

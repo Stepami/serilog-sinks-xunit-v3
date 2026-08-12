@@ -1,5 +1,6 @@
-![](icon.png)
 # serilog-sinks-xunit-v3
+<img src="icon.png" alt="drawing" width="32"/>
+
 The xUnit.v3 injectable test output sink for Serilog
 
 **Link to NuGet:** https://www.nuget.org/packages/Serilog.Sinks.XUnit3
