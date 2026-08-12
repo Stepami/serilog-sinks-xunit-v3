@@ -1,4 +1,3 @@
-using Microsoft.Extensions.Options;
 using Serilog.Configuration;
 using Serilog.Core;
 using Serilog.Events;
@@ -31,7 +30,7 @@ public static class XUnit3TestsOutputSinkExtensions
         LogEventLevel restrictedToMinimumLevel = LevelAlias.Minimum,
         LoggingLevelSwitch? levelSwitch = null) =>
         loggerSinkConfiguration.Sink(
-            sink ?? new XUnit3TestOutputSink(Options.Create(new XUnit3TestOutputSinkOptions())),
+            sink ?? new XUnit3TestOutputSink(),
             restrictedToMinimumLevel,
             levelSwitch);
 
@@ -57,7 +56,7 @@ public static class XUnit3TestsOutputSinkExtensions
         LogEventLevel restrictedToMinimumLevel = LevelAlias.Minimum,
         LoggingLevelSwitch? levelSwitch = null) =>
         loggerSinkConfiguration.XUnit3TestOutput(
-            Options.Create(new XUnit3TestOutputSinkOptions(outputTemplate, formatProvider)),
+            new XUnit3TestOutputSinkOptions(outputTemplate, formatProvider),
             restrictedToMinimumLevel,
             levelSwitch);
 
@@ -77,7 +76,7 @@ public static class XUnit3TestsOutputSinkExtensions
     /// <returns>Configuration object allowing method chaining.</returns>
     public static LoggerConfiguration XUnit3TestOutput(
         this LoggerSinkConfiguration loggerSinkConfiguration,
-        IOptions<XUnit3TestOutputSinkOptions> options,
+        XUnit3TestOutputSinkOptions options,
         LogEventLevel restrictedToMinimumLevel = LevelAlias.Minimum,
         LoggingLevelSwitch? levelSwitch = null) =>
         loggerSinkConfiguration.XUnit3TestOutput(

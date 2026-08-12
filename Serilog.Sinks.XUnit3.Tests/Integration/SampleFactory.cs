@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Options;
 
 namespace Serilog.Sinks.XUnit3.Tests.Integration;
 
@@ -11,7 +10,6 @@ public class SampleFactory : WebApplicationFactory<Program>
     {
         builder.ConfigureServices(services =>
         {
-            services.AddSingleton(Options.Create(new XUnit3TestOutputSinkOptions()));
             services.AddSingleton<XUnit3TestOutputSink>();
         });
         builder.UseSerilog((_, serviceProvider, loggerConfiguration) =>
