@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
 		<TargetFrameworks>netstandard2.0;net8.0</TargetFrameworks>
@@ -25,14 +25,14 @@
     </PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Serilog" Version="4.4.0" />
-		<PackageReference Include="xunit.v3.extensibility.core" Version="4.0.0" />
+		<PackageReference Include="Serilog" />
+		<PackageReference Include="xunit.v3.extensibility.core" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<None Include="../LICENSE" Pack="true" Visible="false" PackagePath=""/>
-		<None Include="../README.md" Pack="true" Visible="false" PackagePath=""/>
-		<None Include="../icon.png" Pack="true" Visible="false" PackagePath=""/>
+		<None Include="../LICENSE" Pack="true" Visible="false" PackagePath="" />
+		<None Include="../README.md" Pack="true" Visible="false" PackagePath="" />
+		<None Include="../icon.png" Pack="true" Visible="false" PackagePath="" />
 	</ItemGroup>
 
 </Project>
