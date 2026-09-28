@@ -15,18 +15,18 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.30" />
-        <PackageReference Include="NSubstitute" Version="6.2.0" />
-        <PackageReference Include="xunit.v3" Version="4.0.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" />
+        <PackageReference Include="NSubstitute" />
+        <PackageReference Include="xunit.v3" />
     </ItemGroup>
 
     <ItemGroup>
-        <Using Include="Xunit"/>
+        <Using Include="Xunit" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Serilog.Sinks.XUnit3.Sample\Serilog.Sinks.XUnit3.Sample.csproj"/>
-        <ProjectReference Include="..\Serilog.Sinks.XUnit3\Serilog.Sinks.XUnit3.csproj"/>
+        <ProjectReference Include="..\Serilog.Sinks.XUnit3.Sample\Serilog.Sinks.XUnit3.Sample.csproj" />
+        <ProjectReference Include="..\Serilog.Sinks.XUnit3\Serilog.Sinks.XUnit3.csproj" />
     </ItemGroup>
 
 </Project>
